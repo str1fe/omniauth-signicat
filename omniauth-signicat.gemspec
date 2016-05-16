@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/Nabobil/omniauth-signicat'
 
   gem.add_runtime_dependency 'omniauth', '~> 1.3'
-  gem.add_runtime_dependency 'nokogiri', '~> 1.5.1'
+  gem.add_runtime_dependency 'nokogiri', '>= 1.5.1'
 
   gem.add_development_dependency 'rspec', '~>3.4'
   gem.add_development_dependency 'simplecov', '~> 0.11'

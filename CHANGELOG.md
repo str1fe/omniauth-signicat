@@ -4,6 +4,10 @@ A Signicat strategy for OmniAuth.
 
 https://github.com/Nabobil/omniauth-signicat
 
+## 1.6.1 (2016-05-16)
+
+* Change Nokogiri required version
+
 ## 1.6.0 (2016-05-16)
 
 * First version

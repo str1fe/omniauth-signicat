@@ -46,6 +46,7 @@ module OmniAuth
           "https://#{options[:env]}.signicat.com",
           "/std/method/#{options[:service]}",
           "?id=#{options[:method]}:#{options[:profile]}:#{options[:language]}",
+          "&#{prefilled_query_params}",
           "&target=#{CGI.escape(callback_url)}"
         ].join('')
       end
@@ -63,6 +64,12 @@ module OmniAuth
       extra { { raw_info: @attributes } }
 
       private
+
+      def prefilled_query_params
+        options.fetch(:prefilled, {}).map do |key, value|
+          "prefilled.#{key}=#{value}"
+        end.join('&')
+      end
 
       def verify_signature!(xml)
         key = extract_public_key(xml)

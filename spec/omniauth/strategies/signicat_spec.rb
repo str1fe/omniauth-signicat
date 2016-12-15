@@ -33,6 +33,34 @@ describe OmniAuth::Strategies::Signicat, type: :strategy do
     it 'should redirect correctly' do
       last_response.location.should include 'https://preprod.signicat.com/std/method/demo?id=nbid:default:nb'
     end
+
+    context 'when passing phone and subject' do
+      around do |example|
+        signicat_options[:prefilled] = {
+          phone: '99988777',
+          subject: '010170'
+        }
+        example.run
+      end
+
+      it 'should include prefilled query params' do
+        last_response.location.should include '&prefilled.subject=010170'
+        last_response.location.should include '&prefilled.phone=99988777'
+      end
+    end
+
+    context 'when passing subject' do
+      around do |example|
+        signicat_options[:prefilled] = {
+          subject: '01017012345'
+        }
+        example.run
+      end
+
+      it 'should include prefilled query params' do
+        last_response.location.should include '&prefilled.subject=01017012345'
+      end
+    end
   end
 
   describe 'POST /auth/signicat/callback' do

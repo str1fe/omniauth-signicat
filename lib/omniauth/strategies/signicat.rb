@@ -3,6 +3,7 @@ require 'cgi'
 require 'base64'
 require 'nokogiri'
 require 'digest/sha1'
+require 'openssl'
 
 module OmniAuth
   module Strategies

@@ -19,6 +19,12 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+  config.mock_with :rspec do |c|
+    c.syntax = :expect
+  end
 end
 
 def load_xml(filename = :example_response)

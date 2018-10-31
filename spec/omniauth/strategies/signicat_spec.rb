@@ -31,7 +31,7 @@ describe OmniAuth::Strategies::Signicat, type: :strategy do
     end
 
     it 'should redirect correctly' do
-      last_response.location.should include 'https://preprod.signicat.com/std/method/demo?id=nbid:default:nb'
+      expect(last_response.location).to include 'https://preprod.signicat.com/std/method/demo?id=nbid:default:nb'
     end
 
     context 'when passing phone and subject' do
@@ -44,8 +44,8 @@ describe OmniAuth::Strategies::Signicat, type: :strategy do
       end
 
       it 'should include prefilled query params' do
-        last_response.location.should include '&prefilled.subject=010170'
-        last_response.location.should include '&prefilled.phone=99988777'
+        expect(last_response.location).to include '&prefilled.subject=010170'
+        expect(last_response.location).to include '&prefilled.phone=99988777'
       end
     end
 
@@ -58,7 +58,7 @@ describe OmniAuth::Strategies::Signicat, type: :strategy do
       end
 
       it 'should include prefilled query params' do
-        last_response.location.should include '&prefilled.subject=01017012345'
+        expect(last_response.location).to include '&prefilled.subject=01017012345'
       end
     end
   end
@@ -69,20 +69,20 @@ describe OmniAuth::Strategies::Signicat, type: :strategy do
     let(:xml) { :example_response }
 
     before :each do
-      Time.stub(:now).and_return(Time.utc(2016, 5, 10, 8, 57, 00))
+      allow(Time).to receive(:now).and_return(Time.utc(2016, 5, 10, 8, 57, 00))
     end
 
     shared_examples_for 'a valid response' do
       it 'should set the uid to the nameID in the SAML response' do
-        auth_hash['uid'].should == '9578-6000-4-140135'
+        expect(auth_hash['uid']).to eq '9578-6000-4-140135'
       end
 
       it 'should set the info' do
-        auth_hash[:info].should == {
+        expect(auth_hash[:info]).to eq({
           'firstname' => 'Bjørn Test',
           'lastname' => 'Teisvær',
           'date-of-birth' => '1961-03-23'
-        }
+        })
       end
 
       it 'should set the raw info to all attributes' do

@@ -2,7 +2,7 @@ require 'omniauth'
 require 'cgi'
 require 'base64'
 require 'nokogiri'
-require 'digest/sha1'
+require 'digest'
 require 'openssl'
 
 module OmniAuth
@@ -77,7 +77,7 @@ module OmniAuth
 
         signed_info = extract_signed_info(xml)
         signature = extract_signature(xml)
-        return if key.verify(OpenSSL::Digest::SHA1.new, signature, signed_info)
+        return if key.verify(OpenSSL::Digest::SHA256.new, signature, signed_info)
 
         raise OmniAuth::Strategies::Signicat::ValidationError, 'Invalid signature'
       end
